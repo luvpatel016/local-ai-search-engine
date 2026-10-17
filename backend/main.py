@@ -14,3 +14,7 @@ app.add_middleware(
 @app.get("/")
 def home(): 
     return {"message": "Local AI Search Engine backend is running"}
+
+@app.get("/search")
+def search(query: str):
+    return {"query_received": query}

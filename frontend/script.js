@@ -4,15 +4,20 @@ const searchInput = document.getElementById("searchInput");
 const fileInput = document.getElementById("fileInput");
 
 uploadButton.addEventListener("click", function () { 
+    
     const file = fileInput.files[0];
 
     console.log(file);
 });
 
 searchButton.addEventListener("click", function () { 
+    
     const query = searchInput.value;
     
-    fetch("http://127.0.0.1:8000/")
+    fetch(
+    "http://127.0.0.1:8000/search?query=" +
+    encodeURIComponent(query)
+)
     .then(response => response.json())
     .then(data => {
         console.log(data);

@@ -1,12 +1,20 @@
 const uploadButton = document.getElementById("uploadButton"); 
 const searchButton = document.getElementById("searchButton");
 const searchInput = document.getElementById("searchInput");
+const fileInput = document.getElementById("fileInput");
 
 uploadButton.addEventListener("click", function () { 
-    console.log("Upload button clicked");
+    const file = fileInput.files[0];
+
+    console.log(file);
 });
 
 searchButton.addEventListener("click", function () { 
     const query = searchInput.value;
-    console.log(query);
+    
+    fetch("http://127.0.0.1:8000/")
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    });
 });

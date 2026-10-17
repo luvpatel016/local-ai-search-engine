@@ -2,6 +2,7 @@ const uploadButton = document.getElementById("uploadButton");
 const searchButton = document.getElementById("searchButton");
 const searchInput = document.getElementById("searchInput");
 const fileInput = document.getElementById("fileInput");
+const results = document.getElementById("results");
 
 uploadButton.addEventListener("click", function () { 
     
@@ -20,6 +21,6 @@ searchButton.addEventListener("click", function () {
 )
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+        results.innerHTML = "<p>" + data.query_received + "</p>";
     });
 });

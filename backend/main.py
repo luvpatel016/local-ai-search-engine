@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI() 
@@ -18,3 +18,11 @@ def home():
 @app.get("/search")
 def search(query: str):
     return {"query_received": query}
+
+@app.get("/upload")
+async def upload_file(file: UploadFile = File(...)):
+    return {"filename": file.filename}
+
+@app.post("/upload")
+async def upload_file(file: UploadFile = File(...)):
+    return {"filename": file.filename}

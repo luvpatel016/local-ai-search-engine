@@ -4,11 +4,22 @@ const searchInput = document.getElementById("searchInput");
 const fileInput = document.getElementById("fileInput");
 const results = document.getElementById("results");
 
-uploadButton.addEventListener("click", function () { 
-    
+uploadButton.addEventListener("click", function () {
+
     const file = fileInput.files[0];
 
-    console.log(file);
+    const formData = new FormData();
+
+    formData.append("file", file);
+
+    fetch("http://127.0.0.1:8000/upload", {
+        method: "POST",
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        });
 });
 
 searchButton.addEventListener("click", function () { 

@@ -1,5 +1,6 @@
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
+import os
 
 app = FastAPI() 
 
@@ -25,4 +26,15 @@ async def upload_file(file: UploadFile = File(...)):
 
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
-    return {"filename": file.filename}
+
+    file_path = os.path.join("..", "documents", file.filename)
+
+    contents = await file.read()
+
+    with open(file_path, "wb") as saved_file:
+        saved_file.write(contents)
+
+    return {
+        "filename": file.filename,
+        "message": "File uploaded successfully"
+    }

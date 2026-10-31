@@ -30,6 +30,15 @@ async def upload_file(file: UploadFile = File(...)):
     with open(file_path, "wb") as saved_file:
         saved_file.write(contents)
 
+    if file.filename.endswith(".txt"):
+        with open(file_path, "r", encoding="utf-8") as text_file:
+            text = text_file.read()
+
+        return {
+            "filename": file.filename,
+            "text": text
+        }
+
     return {
         "filename": file.filename,
         "message": "File uploaded successfully"

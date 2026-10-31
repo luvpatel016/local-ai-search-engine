@@ -20,10 +20,6 @@ def home():
 def search(query: str):
     return {"query_received": query}
 
-@app.get("/upload")
-async def upload_file(file: UploadFile = File(...)):
-    return {"filename": file.filename}
-
 @app.post("/upload")
 async def upload_file(file: UploadFile = File(...)):
 

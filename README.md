@@ -1,3 +1,3 @@
 ﻿# local-ai-search-engine
 
-local ai engine project in the works 
+local ai search engine project in the works 

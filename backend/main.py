@@ -2,7 +2,19 @@ from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 import os
 
-app = FastAPI() 
+app = FastAPI()
+
+
+def chunk_text(text, chunk_size=50):
+    words = text.split()
+    chunks = []
+
+    for i in range(0, len(words), chunk_size):
+        chunk = words[i:i + chunk_size]
+        chunks.append(" ".join(chunk))
+
+    return chunks
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -13,7 +25,7 @@ app.add_middleware(
 )
 
 @app.get("/")
-def home(): 
+def home():
     return {"message": "Local AI Search Engine backend is running"}
 
 @app.get("/search")
@@ -34,9 +46,12 @@ async def upload_file(file: UploadFile = File(...)):
         with open(file_path, "r", encoding="utf-8") as text_file:
             text = text_file.read()
 
+        chunks = chunk_text(text)
+
         return {
             "filename": file.filename,
-            "text": text
+            "text": text,
+            "chunks": chunks
         }
 
     return {
